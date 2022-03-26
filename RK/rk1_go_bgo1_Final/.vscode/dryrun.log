@@ -1,0 +1,5 @@
+make -f /home/nastya/Desktop/University/5_semester/AA/rk1_go_bgo1/makefile --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/nastya/Desktop/University/5_semester/AA/rk1_go_bgo1'
+go build -gcflags="-N -l" -o main main.go brick.go builder.go dispetcher.go director.go app.go 
+make: Leaving directory '/home/nastya/Desktop/University/5_semester/AA/rk1_go_bgo1'
+ 

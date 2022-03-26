@@ -1,0 +1,125 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item Наличие меню для реализации выбора пользователя.
+    \item На вход подаются 2 строки
+    \item Результат в зависимости от выбора пользователя:
+    \begin{enumerate}
+        \item два числа - расстояние Левенштейна между строками и расстояние Дамерау-Левенштейна между строками
+        \item время, затраченное на обработку строк каждым из исследуемых алгоритмов.
+    \end{enumerate}
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Requirements}
+
+Был выбран язык Go для знакомства с ним.
+
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:structmatrix} представлено описание структуры матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Структура матрицы},
+    label = {list:matrixstruct},
+    linerange={8-12},
+    ]{../Lab1/structs.go}
+\end{lstinputlisting}\label{list:structmatrix}
+
+На листинге \ref{list:levenshteinmatrixstruct} представлено описание структуры специализированной матрицы для нахождения расстояния Левенштейна.
+
+\begin{lstinputlisting}
+    [caption = {Структура специализированной матрицы Левенштейна},
+    label = {list:levenshteinmatrixstruct},
+    linerange={14-18},
+    ]{../Lab1/structs.go}
+\end{lstinputlisting}
+
+Структура данных ассоциативный массив представлена в языке Go.
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:matrixlevenstheinalg} представлена реализация алгоритмов.
+
+\begin{lstinputlisting}
+    [caption = {Реализация матричного алгоритма поиска расстояния Левенштейна},
+    label = {list:matrixlevenstheinalg},
+    linerange={100-125},
+    ]{../Lab1/algorithms.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:recursivelevenstheinalg} представлена реализация алгоритмов.
+
+\begin{lstinputlisting}
+    [caption = {Реализация рекурсивного алгоритма поиска расстояния Левенштейна},
+    label = {list:recursivelevenstheinalg},
+    linerange={14-29},
+    ]{../Lab1/algorithms.go}
+\end{lstinputlisting}
+
+
+На листинге \ref{list:recursivekeshlevenstheinalg} представлена реализация алгоритмов.
+
+\begin{lstinputlisting}
+    [caption = {Реализация рекурсивного алгоритма с кешем поиска расстояния Левенштейна},
+    label = {list:recursivekeshlevenstheinalg},
+    linerange={58-96},
+    ]{../Lab1/algorithms.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:recursivedameraylevenstheinalg} представлена реализация алгоритмов.
+
+\begin{lstinputlisting}
+    [caption = {Реализация рекурсивного алгоритма поиска расстояния Дамерау-Левенштейна},
+    label = {list:recursivedameraylevenstheinalg},
+    linerange={32-55},
+    ]{../Lab1/algorithms.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+
+\begin{table}[ht]
+    \caption{Тесты поиска расстояния Левенштейна}
+\begin{tabular}{ l | l | l | l }
+    ${N^{\underline{o}}}$ & Строка 1 & Строка 2 & Вывод  \\ \hline
+    1 &  & slovo & 5\\
+    2 & no & slovo & 4\\
+    3 & olovo & slovo & 1\\
+    4 & slovo & slovo & 0\\
+    5 & sloov & slovo & 2\\
+    6 & oslovovo & slovo & 3\\
+    7 & net & slovo & 5\\
+\end{tabular}
+\label{tab:levenstein}
+\end{table}
+
+
+\begin{table}[ht]
+    \caption{Тесты поиска расстояния Дамерау-Левенштейна}
+    \begin{tabular}{ l | l | l | l }
+        ${N^{\underline{o}}}$ & Строка 1 & Строка 2 & Вывод  \\ \hline
+        1 &  & slovo & 5\\
+        2 & no & slovo & 4\\
+        3 & olovo & slovo & 1\\
+        4 & slovo & slovo & 0\\
+        5 & sloov & slovo & 1\\
+        6 & oslovovo & slovo & 3\\
+        7 & net & slovo & 5\\
+    \end{tabular}\label{tab:dameraylevenstein}
+\end{table}
+
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

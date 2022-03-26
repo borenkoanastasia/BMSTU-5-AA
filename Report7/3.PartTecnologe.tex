@@ -1,0 +1,94 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item на вход подается ключ;
+    \item результат: значение, соответствующее ключу. 
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Language}
+
+Был выбран язык go, поскольку он удовлетворяет требованиям лабораторной работы. Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:matrixstruct} представлено описание структуры словаря.
+
+\begin{lstinputlisting}
+    [caption = {Структура словаря},
+    label = {list:matrixstruct},
+    linerange={10-13},
+    ]{../Lab7/type.go}
+\end{lstinputlisting}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:poslav} представлена реализация алгоритма полного перебора.
+
+\begin{lstinputlisting}
+    [caption = {Реализация последовательного алгоритма нахождения среднего арифметического матрицы},
+    label = {list:poslav},
+    linerange={5-16},
+    ]{../Lab7/proccess.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:choise} представлена реализация алгоритма бинарного поиска.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма бинарного поиска},
+    label = {list:choise},
+    linerange={18-29},
+    ]{../Lab7/proccess.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:insert} представлена реализация алгоритма формирования сегментов.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма формирования сегментов},
+    label = {list:insert},
+    linerange={31-41},
+    ]{../Lab7/proccess.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:insert} представлена реализация алгоритма частотного анализа.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма частотного анализа},
+    label = {list:insert},
+    linerange={43-56},
+    ]{../Lab7/proccess.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+В таблице представлены тестовые данные \ref{tab:matrixMultiply}.
+
+
+\begin{table}[ht]
+    \caption{Тесты}
+    \centering
+\begin{tabular}{ l | l | l }
+    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline \hline
+    1 &  0   &    Нет элемента.    \\  \hline 
+    2 &  23400005678   &    Kathleen Johnson    \\  \hline 
+    3 &  23400005678   &    2    \\ \hline 
+    4 &  23401515678  &    Donna Weaver    \\  \hline 
+    5 &  23420735678  &    Kenneth Hunter    \\  \hline  
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+Тесты пройдены.
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

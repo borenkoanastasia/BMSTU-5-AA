@@ -1,0 +1,117 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item на вход подается матрица смежностей;
+    \item результат: список вершин - кратчайший путь в графе. 
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Language}
+
+Был выбран язык go, поскольку он удовлетворяет требованиям задачи. Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:myravsstruct} представлено описание структуры муравья.
+
+\begin{lstinputlisting}
+    [caption = {Структура муравья},
+    label = {list:myravsstruct},
+    linerange={11-16},
+    ]{../Lab6_v2/myravs.go}
+\end{lstinputlisting}
+
+\newpage 
+
+На листинге \ref{list:colonystruct} представлено описание структуры колонии.
+
+
+\begin{lstinputlisting}
+    [caption = {Структура колонии},
+    label = {list:colonystruct},
+    linerange={18-26},
+    ]{../Lab6_v2/myravs.go}
+\end{lstinputlisting}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:poslav} представлена реализация алгоритма полного перебора.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма полного перебора},
+    label = {list:poslav},
+    linerange={68-84},
+    ]{../Lab6_v2/allsearch.go}
+\end{lstinputlisting}
+
+На листингах \ref{list:choise1}, \ref{list:choise2}, \ref{list:choise3} представлена реализация 
+муравьиного алгоритма.
+
+\begin{lstinputlisting}
+    [caption = {Реализация муравьиного алгоритма ч.1},
+    label = {list:choise1},
+    linerange={85-122},
+    ]{../Lab6_v2/myravs.go}
+\end{lstinputlisting}
+\begin{lstinputlisting}
+    [caption = {Реализация муравьиного алгоритма ч.2},
+    label = {list:choise2},
+    linerange={122-159},
+    ]{../Lab6_v2/myravs.go}
+\end{lstinputlisting}
+\begin{lstinputlisting}
+    [caption = {Реализация муравьиного алгоритма ч.3},
+    label = {list:choise3},
+    linerange={159-191},
+    ]{../Lab6_v2/myravs.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+В таблице \ref{tab:matrixMultiply} представленны тесты.
+
+\begin{table}[ht]
+    \caption{Тесты}
+    \centering
+\begin{tabular}{ l | l | l }
+    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline \hline
+1&
+\begin{tabular}{ l | l | l | l | l }
+    0 &3& 1& 6& 8\\
+    3 &0& 4& 1& 0\\
+    1 &4& 0& 5& 0\\
+    6 &1& 5& 6& 1\\
+    8 &0& 0& 1& 1 
+\end{tabular}
+&
+15
+    \\  \hline 
+    2&
+    \begin{tabular}{ l | l | l | l  }
+        0 &10 &15 &20\\
+        10 &0 &35 &25\\
+        15 &35 &0 &30\\
+        20 &25 &30 &0\\
+    \end{tabular}
+    &
+    80
+    \\  
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+
+Тесты пройдены.
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

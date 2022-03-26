@@ -1,0 +1,117 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item на вход подается ключ;
+    \item результат: значение, соответствующее ключу. 
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Language}
+
+Был выбран язык go, поскольку он удовлетворяет требованиям лабораторной работы. Средой разработки выбрана Visual Studio Code. 
+\cite{go}, \cite{linux}, \cite{debian}.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:matrixstruct}, \ref{list:matrixstruct2} представлено описание структуры кирпича и параметров системы.
+
+\begin{lstinputlisting}
+    [caption = {Структура кирпича},
+    label = {list:matrixstruct},
+    linerange={69-73},
+    ]{../rk1_go_bgo1/brick.go}
+\end{lstinputlisting}
+
+\newpage
+
+\begin{lstinputlisting}
+    [caption = {Параметры системы},
+    label = {list:matrixstruct2},
+    linerange={40-58},
+    ]{../rk1_go_bgo1/brick.go}
+\end{lstinputlisting}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:poslav} представлена реализация алгоритма каменщиков.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма каменщика ч. 1},
+    label = {list:poslav},
+    linerange={89-98},
+    ]{../rk1_go_bgo1/builder.go}
+\end{lstinputlisting}
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма каменщика ч. 2},
+    label = {list:poslav},
+    linerange={98-129},
+    ]{../rk1_go_bgo1/builder.go}
+\end{lstinputlisting}
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма каменщика ч. 3},
+    label = {list:poslav},
+    linerange={129-133},
+    ]{../rk1_go_bgo1/builder.go}
+\end{lstinputlisting}
+
+
+На листинге \ref{list:choise} представлена реализация алгоритма диспетчера.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма диспетчера},
+    label = {list:choise},
+    linerange={121-145},
+    ]{../rk1_go_bgo1/dispetcher.go}
+\end{lstinputlisting}
+
+Поскольку необходимо визуализировать стену Фокса, для наглядности, один из потоков будет работать в 2 раза медленее - 2 поток)
+
+\section{Тестирование}\label{TestResult}
+
+
+%\textbf{Модульные тесты}
+
+%В таблице представлены тестовые данные \ref{tab:matrixMultiply}.
+
+
+%\begin{table}[ht]
+%    \caption{Тесты}
+%    \centering
+%\begin{tabular}{ l | l | l }
+%    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline \hline
+%    1 &  0   &    Нет элемента.    \\  \hline 
+%    2 &  23400005678   &    Kathleen Johnson    \\  \hline 
+%    3 &  23400005678   &    2    \\ \hline 
+%    4 &  23401515678  &    Donna Weaver    \\  \hline 
+%    5 &  23420735678  &    Kenneth Hunter    \\  \hline  
+%\end{tabular}
+%\label{tab:matrixMultiply}
+%\end{table}
+
+В таблице представлены тестовые данные \ref{tab:matrixMultiply}.
+\begin{table}[ht]
+    \caption{Тесты}
+    \centering
+\begin{tabular}{ l | l | l }
+    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline \hline
+    1 &  Стена 1*1   &    4     \\  \hline 
+    2 &  Стена 10*10   &    4    \\  \hline 
+    2 &  Стена 10*10   &    8    \\  \hline 
+    3 &  Стена 10*5   &    1    \\ \hline 
+    4 &  Стена 100*100  &    4    \\  \hline 
+    5 &  Стена 100*100  &    10    \\  \hline  
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+Тесты пройдены.
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

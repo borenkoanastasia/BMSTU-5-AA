@@ -1,0 +1,12 @@
+goos: linux
+goarch: amd64
+BenchmarkLM_10S-4    	  872814	      1313 ns/op	    1040 B/op	      11 allocs/op
+BenchmarkLR_10S-4    	 2365603	       513 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDLR_10S-4   	 1559949	       814 ns/op	       0 B/op	       0 allocs/op
+BenchmarkLRK_10S-4   	  985267	      1347 ns/op	     352 B/op	       8 allocs/op
+BenchmarkLM_10D-4    	  942909	      1286 ns/op	    1040 B/op	      11 allocs/op
+BenchmarkLR_10D-4    	 2234432	       503 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDLR_10D-4   	 1838980	       645 ns/op	       0 B/op	       0 allocs/op
+BenchmarkLRK_10D-4   	  835746	      1208 ns/op	     352 B/op	       8 allocs/op
+PASS
+ok  	_/home/nastya/Desktop/University/5_semester/AA/Lab1	12.046s

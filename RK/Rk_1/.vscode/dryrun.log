@@ -1,0 +1,9 @@
+make -f /home/nastya/Desktop/University/5_semester/AA/Rk_1/makefile --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/nastya/Desktop/University/5_semester/AA/Rk_1'
+make: Leaving directory '/home/nastya/Desktop/University/5_semester/AA/Rk_1'
+ 
+make: /home/nastya/Desktop/University/5_semester/AA/Rk_1/makefile: No such file or directory
+make: *** No rule to make target '/home/nastya/Desktop/University/5_semester/AA/Rk_1/makefile'.
+make: Failed to remake makefile '/home/nastya/Desktop/University/5_semester/AA/Rk_1/makefile'.
+make: *** No targets specified and no makefile found.  Stop.
+ 

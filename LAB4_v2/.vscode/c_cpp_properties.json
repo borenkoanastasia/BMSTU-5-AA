@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Qt Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "forcedInclude": [],
+            "compileCommands": "~/Desktop/University/4_semester/Computer_Graph/LR_3/v1/.vscode/tasks.json",
+            "browse": {
+                "databaseFilename": "",
+                "path": [
+                    "/usr/include/"
+                ]
+            }
+        }
+    ],
+    "version": 4
+}

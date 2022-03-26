@@ -1,0 +1,50 @@
+\begin{thebibliography}{1}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\language\csname l@#1\endcsname\fi}
+\ifx\undefined\url\def\url#1{{\small #1}}\else\fi
+\ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
+\ifx\undefined\BibAnnote\long\def\BibAnnote#1{(#1)}\else\fi
+\ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+\bibitem{gG07}
+\selectlanguageifdefined{russian}
+Gratzer~George~A. More Math Into LaTeX.
+\newblock 4th {изд.}
+\newblock Boston: Birkhauser, 2007.
+
+\bibitem{go}
+\selectlanguageifdefined{russian}
+Go Documentation [Электронный ресурс].
+\newblock Режим доступа: \url{https://go.dev/doc/}.
+\newblock Дата обращения: 20.09.2020.
+
+\bibitem{debian}
+\selectlanguageifdefined{russian}
+Debian -- универсальная операционная система
+  [Электронный ресурс].
+\newblock Режим доступа: \url{https://www.debian.org/}.
+\newblock Дата обращения: 20.09.2020.
+
+\bibitem{linux}
+\selectlanguageifdefined{russian}
+Linux -- Getting Started [Электронный ресурс].
+\newblock Режим доступа: \url{https://linux.org}.
+\newblock Дата обращения: 20.09.2020.
+
+\bibitem{openUrok}
+\selectlanguageifdefined{russian}
+Открытый урок. Первое сентября.
+  [Электронный ресурс].
+\newblock Режим доступа:
+  \url{https://urok.1sept.ru/articles/637896}.
+\newblock Дата обращения: 03.12.2021.
+
+\bibitem{poivsmatrixes}
+\selectlanguageifdefined{russian}
+ПОИВС [Электронный ресурс].
+\newblock Режим доступа:
+  \url{http://poivs.tsput.ru/ru/Math/Algebra/LinearAlgebra/Matrices}.
+\newblock Дата обращения: 03.12.2021.
+
+\end{thebibliography}

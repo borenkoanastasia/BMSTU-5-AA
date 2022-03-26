@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "qmainwindow": "cpp",
+        "qtglobal": "cpp",
+        "qtimer": "cpp",
+        "qcolor": "cpp",
+        "qgraphicslineitem": "cpp",
+        "new": "cpp"
+    }
+}

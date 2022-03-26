@@ -1,0 +1,62 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item на вход подается количество заявок;
+    \item результат: замеры времени пребывания заявки на этапах и в очередях. 
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Language}
+
+Был выбран язык go, поскольку он удовлетворяет необходимым требованиям и удобен программирования параллельных вычислений. 
+Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:matrixstruct} представлено описание структуры заявки.
+
+\begin{lstinputlisting}
+    [caption = {Структура матрицы},
+    label = {list:matrixstruct},
+    linerange={30-39},
+    ]{../Lab5_v2/request.go}
+\end{lstinputlisting}
+
+\section{Реализация конвейера}\label{Listings}
+
+На листинге \ref{list:poslav} представлена реализация конвейера.
+
+\begin{lstinputlisting}
+    [caption = {Реализация последовательного алгоритма нахождения среднего арифметического матрицы},
+    label = {list:poslav},
+    linerange={15-84},
+    ]{../Lab5_v2/conveer.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+\begin{table}[ht]
+    \caption{Тесты}
+    \centering
+\begin{tabular}{ l | l | l | l | l |}
+    ${N^{\underline{o}}}$ & Ввод & Шифр Цезаря (key=13)&  Шифр Атбаш &  Шифр XOR (key a) \\ \hline \hline
+    1 & abc & nop & zyx & yz\{ \\  \hline 
+    2 & zyx & mlk & abc & bap \\  \hline 
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+Тесты пройдены.
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

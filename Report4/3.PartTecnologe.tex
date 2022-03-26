@@ -1,0 +1,98 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item наличие меню для реализации выбора пользователя;
+    \item на вход подается матрица;
+    \item результат: число -среднее арифметическое матрицы. 
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Language}
+
+Был выбран язык C++, поскольку в нем используются нативные потоки. Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:matrixstruct} представлено описание структуры матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Структура матрицы},
+    label = {list:matrixstruct},
+    linerange={21-25},
+    ]{../LAB4_v2/matrix.hpp}
+\end{lstinputlisting}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:poslav} представлена реализация последовательного алгоритма нахождения среднего арифметического матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Реализация последовательного алгоритма нахождения среднего арифметического матрицы},
+    label = {list:poslav},
+    linerange={46-55},
+    ]{../LAB4_v2/matrix.cpp}
+\end{lstinputlisting}
+
+На листинге \ref{list:choise} представлена реализация распараллеленого по строкам алгоритма нахождения среднего арифметического матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Реализация распараллеленого по строкам алгоритма нахождения среднего арифметического матрицы},
+    label = {list:choise},
+    linerange={56-67},
+    ]{../LAB4_v2/matrix.cpp}
+\end{lstinputlisting}
+
+На листинге \ref{list:insert} представлена реализация распараллеленого по столбцам алгоритма нахождения среднего арифметического матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Реализация распараллеленого по столбцам алгоритма нахождения среднего арифметического матрицы},
+    label = {list:insert},
+    linerange={68-79},
+    ]{../LAB4_v2/matrix.cpp}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+
+\begin{table}[ht]
+    \caption{Тесты}
+    \centering
+\begin{tabular}{ l | l | l }
+    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline \hline
+    1 &
+    0 0 
+    &
+    Нет элементов.
+    \\  \hline 
+
+    3 &
+    1 0
+    &
+    Нет элементов.
+    \\  \hline 
+    
+    2 &
+    2 2 2 2 2 2 
+    &
+    2
+    \\ 
+
+
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+Тесты пройдены.
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

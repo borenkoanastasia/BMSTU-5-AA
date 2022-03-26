@@ -1,0 +1,5 @@
+make -f /home/nastya/Desktop/University/5_semester/AA/Lab1/makefile --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/nastya/Desktop/University/5_semester/AA/Lab1'
+go build main.go algorithms.go manual_testing.go auto_testing.go structs.go menu.go help_testing.go
+make: Leaving directory '/home/nastya/Desktop/University/5_semester/AA/Lab1'
+ 

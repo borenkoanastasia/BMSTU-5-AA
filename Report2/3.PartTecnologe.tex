@@ -1,0 +1,173 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item Наличие меню для реализации выбора пользователя.
+    \item На вход подаются 2 матрицы
+    \item Результат в зависимости от выбора пользователя:
+    \begin{enumerate}
+        \item произведение введеных матриц
+        \item замеры времени работы каждого из исследуемых алгоритмов
+    \end{enumerate}
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Requirements}
+
+Был выбран язык Go, поскольку он удовлетворяет требованиям задания. Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:arraystruct} представлено описание структуры массива.
+
+\begin{lstinputlisting}
+    [caption = {Структура массива},
+    label = {list:arraystruct},
+    linerange={5-8},
+    ]{../Lab2/structs.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:matrixstruct} представлено описание структуры матрицы.
+
+\begin{lstinputlisting}
+    [caption = {Структура матрицы},
+    label = {list:matrixstruct},
+    linerange={9-13},
+    ]{../Lab2/structs.go}
+\end{lstinputlisting}\label{list:structmatrix}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:standartmatrixmul} представлена реализация алгоритма стандартного умножения матриц.
+
+\begin{lstinputlisting}
+    [caption = {Реализация стандартного алгоритма умножения матриц},
+    label = {list:standartmatrixmul},
+    linerange={10-25},
+    ]{../Lab2/algorithms.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:vinogradmatrixmul} представлена реализация алгоритма Винограда.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма Винограда},
+    label = {list:vinogradmatrixmul},
+    linerange={28-68},
+    ]{../Lab2/algorithms.go}
+\end{lstinputlisting}
+
+
+На листинге \ref{list:optvinogradmatrixmul} представлена реализация оптимизированного алгоритма Винограда.
+
+\begin{lstinputlisting}
+    [caption = {Реализация оптимизированного алгоритма Винограда},
+    label = {list:optvinogradmatrixmul},
+    linerange={71-110},
+    ]{../Lab2/algorithms.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+
+\begin{table}[ht]
+    \caption{Тесты (матричное представление)}
+\begin{tabular}{ l || l || l || l }
+    ${N^{\underline{o}}}$ & Матрица 1 & Матрица 2 & Произведение матриц 1 и 2  \\ \hline
+    1 &
+    \begin{tabular}{ l | l | l | l }
+        1 & 1 & 1 & 1 \\ \hline
+        1 & 1 & 1 & 1 \\
+    \end{tabular} 
+    &
+    \begin{tabular}{ l | l | l | l }
+        1 & 1 & 1 & 1 \\ \hline
+        1 & 1 & 1 & 1 \\ 
+    \end{tabular} 
+    & Умножение не возможно
+    \\  \hline \hline
+
+    2 &
+    \begin{tabular}{ l | l | l | l }
+        1 & 2 \\ \hline
+        3 & 4 \\
+    \end{tabular} 
+    &
+    \begin{tabular}{ l | l | l | l }
+        1 & 2 \\ \hline
+        3 & 4 \\
+    \end{tabular} 
+    & 
+    \begin{tabular}{ l | l | l | l }
+        7 & 10 \\ \hline
+        15 & 22 \\
+    \end{tabular} 
+    \\  \hline \hline
+
+
+    3 &
+    \begin{tabular}{ l | l | l | l }
+        1 & 2 & 3\\ \hline
+        4 & 5 & 6\\
+    \end{tabular} 
+    &
+    \begin{tabular}{ l | l | l | l }
+        1 \\ \hline
+        2 \\ \hline
+        3 \\
+    \end{tabular} 
+    & 
+    \begin{tabular}{ l | l | l | l }
+        14 \\ \hline
+        32 \\
+    \end{tabular} 
+    \\  \hline \hline
+
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+
+\begin{table}[ht]
+    \caption{Тесты (ввод числами)}
+\begin{tabular}{ l || l || l || l }
+    ${N^{\underline{o}}}$ & Матрица 1 & Матрица 2 & Произведение матриц 1 и 2  \\ \hline \hline
+    1 &
+    4 2 1 1 1 1 1 1 1 1
+    &
+    4 2 1 1 1 1 1 1 1 1
+    & Умножение не возможно
+    \\  \hline \hline
+
+    2 &
+    2 2 1 2 3 4
+    &
+    2 2 1 2 3 4
+    & 
+    2 2 7 10 15 22
+    \\  \hline \hline
+
+
+    3 &
+    2 3 1 2 3 4 5 6
+    &
+    3 1 1 2 3
+    & 
+    2 1 14 32
+    \\  \hline \hline
+
+\end{tabular}
+\label{tab:matrixInputMultiply}
+\end{table}
+
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+

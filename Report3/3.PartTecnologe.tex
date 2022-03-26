@@ -1,0 +1,100 @@
+
+\chapter{Технологическая часть}\label{tecnology}
+%\addcontentsline{toc}{chapter}{3 Технологическая часть}
+
+\section{Требования к ПО}\label{Requirements}
+
+Требования к программному обеспечению:
+\begin{enumerate}
+    \item Наличие меню для реализации выбора пользователя.
+    \item На вход подаются 2 матрица
+    \item Результат в зависимости от выбора пользователя:
+    \begin{enumerate}
+        \item отсортированный массив
+        \item замеры времени работы каждого из исследуемых алгоритмов
+    \end{enumerate}
+\end{enumerate}
+
+\section{Выбор языка программирования}\label{Requirements}
+
+Был выбран язык Go, поскольку он удовлетворяет требованиям задания. Средой разработки выбрана Visual Studio Code.
+
+\section{Структуры данных}\label{StructsList}
+
+На листинге \ref{list:arraystruct} представлено описание структуры массива.
+
+\begin{lstinputlisting}
+    [caption = {Структура массива},
+    label = {list:arraystruct},
+    linerange={7-10},
+    ]{../Lab3/structs.go}
+\end{lstinputlisting}
+
+\section{Реализация алгоритмов}\label{Listings}
+
+На листинге \ref{list:bubble} представлена реализация алгоритма сортировки пузырьком.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма сортировки пузырьком},
+    label = {list:bubble},
+    linerange={5-13},
+    ]{../Lab3/algorithms.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:choise} представлена реализация алгоритма сортировки выбором.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма сортировки выбором},
+    label = {list:choise},
+    linerange={24-38},
+    ]{../Lab3/algorithms.go}
+\end{lstinputlisting}
+
+На листинге \ref{list:insert} представлена реализация алгоритма сортировки вставками.
+
+\begin{lstinputlisting}
+    [caption = {Реализация алгоритма сортировки вставками},
+    label = {list:insert},
+    linerange={16-22},
+    ]{../Lab3/algorithms.go}
+\end{lstinputlisting}
+
+\section{Тестирование}\label{TestResult}
+
+
+\textbf{Модульные тесты}
+
+
+\begin{table}[ht]
+    \caption{Тесты}
+\begin{tabular}{ l || l || l }
+    ${N^{\underline{o}}}$ & Ввод & Вывод   \\ \hline
+    1 &
+    1 2 3 4 5 6 7 8 9 10
+    &
+    1 2 3 4 5 6 7 8 9 10
+    \\  \hline \hline
+
+    2 &
+    10 9 8 7 6 5 4 3 2 1 
+    &
+    1 2 3 4 5 6 7 8 9 10
+    \\  \hline \hline
+
+
+    3 &
+    1 4 2 7 10 5 9 3 8 6
+    &
+    1 2 3 4 5 6 7 8 9 10
+    \\  \hline \hline
+
+\end{tabular}
+\label{tab:matrixMultiply}
+\end{table}
+
+
+%~\section{Оценка трудоемкости}\label{Difficalties}~---
+~\section{Вывод технологической части}\label{TechResults}~
+
+Были реализованы исследуемые алгоритмы, программа прошла тесты и удовлетворяет требованиям.
+
