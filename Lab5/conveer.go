@@ -1,290 +1,174 @@
 package main
 
 import "time"
-import "fmt"
-
-func conveer(end chan *queue_t){
-	var fsch chan *request_t = make(chan *request_t, 0)
-	var ssch chan *request_t = make(chan *request_t, 0)
-	var tsch chan *request_t = make(chan *request_t, 0)
-
-	var xor_key string = generate_encryption_Xor_key(100)
-
-    cesar := get_string_encryption_Cesar(13)  // сдвиг шифра (Цезарь цикличный)
-    xor := get_string_encryption_Xor(xor_key) // 
-	atbash := string_encryption_Atbash        //
-
-	source := make_start_queue(101, 100)
-
-    
-
-	first_step := func() {
-		var current_request *request_t
-		for{
-			current_request = <- fsch
-    	    current_request.qt1.start = time.Now()
-			current_request.res = cesar(current_request.sorce)
-        	current_request.qt1.end = time.Now()
-			//fmt.Println(11)
-			ssch <- current_request
-		}
-	}
-	second_step := func() {
-		var current_request *request_t
-		for{
-			current_request = <- ssch
-        	current_request.qt2.start = time.Now()
-			current_request.res = atbash(current_request.res)
-        	current_request.qt2.end = time.Now()
-			//fmt.Println(22)
-			tsch <- current_request
-		}
-	}
-	third_step := func() {
-		var current_request *request_t
-
-	    res := make_queue(101)
-		for{
-			current_request = <- tsch
-        	current_request.qt3.start = time.Now()
-			current_request.res = xor(current_request.res)
-        	current_request.qt3.end = time.Now()
-			fmt.Println((*current_request).id )
-            //mutex
-			res.push(current_request)
-			if ((*current_request).id == 100){
-				fmt.Println((*current_request).id, 100)
-				end <- res 
-			}
-		}
-	}
-
-	go first_step();
-	go second_step();
-	go third_step();
-	fmt.Println("Все запустили")
-	for {
-		var r *request_t
-		//fmt.Println(i)
-		r = source.pop()
-		fmt.Println(r)
-		if (r == nil){
-			break
-		}
-		select{
-			case fsch <- r:
-		}		
-		//fmt.Println(i)
-	}
-
-	fmt.Println("Все выполнили")
-}
-
-func analysis(queue *queue_t){
-	var first_waited time.Duration; var second_waited time.Duration; var third_waited time.Duration
-	//first_waited = 0; second_waited = 0; third_waited = 0
-	line := queue.waiting
-	start := line[0].qt1.start
-	fmt.Printf("Время начала\n")
-	//fmt.Printf(line[0])
-	for i:=0;i<len(line);i++{
-		if line[i] != nil{
-			fmt.Println(i, line[i].qt1.start.Sub(start),line[i].qt2.start.Sub(start), line[i].qt3.start.Sub(start))
-		}}
-	fmt.Printf("Время завершения\n")
-	for i:=0;i<len(line);i++{
-		if line[i] != nil{
-			fmt.Println(i, line[i].qt1.end.Sub(start),line[i].qt2.end.Sub(start), line[i].qt3.end.Sub(start))
-		}}
-	fmt.Printf("Линии простаивали\n")
-	for i:=0; i<len(line)-1;i++{
-		first_waited += line[i+1].qt1.start.Sub(start)-line[i].qt1.end.Sub(start)
-		second_waited+= line[i+1].qt2.start.Sub(start)-line[i].qt2.end.Sub(start)
-		third_waited += line[i+1].qt3.start.Sub(start)-line[i].qt3.end.Sub(start)
-	}
-	fmt.Println(first_waited, second_waited, third_waited)
-}
-
-/*
-func conv(amount int, wait chan int) *queue_t{
-	uno := make(chan *cake, 5)
-	dos := make(chan *cake, 5)
-	tres := make(chan *cake, 5)
-	line := new_queue(amount) 
-	first := func(){
-		for{
-			select{
-				case a := <- uno:
-				//fmt.Printf("Cake num %d started dough\n", a.num)
-				a.dough = true
-				
-				a.started_dough = time.Now()
-				took_dough := 200
-				time.Sleep(time.Duration(took_dough) * time.Millisecond)
-				
-				a.finished_dough = time.Now()
-				dos <- a
-			}
-		}
-	}
-	
-	second:= func(){
-	for{
-		select{
-			case a := <- dos:
-				//fmt.Printf("Cake num %d started topping\n", a.num)
-				a.topping = true
-				
-				a.started_topping = time.Now()
-				took_topping := 200
-				time.Sleep(time.Duration(took_topping) * time.Millisecond)
-				
-				a.finished_topping = time.Now()
-				tres <- a
-		}
-	}
-}
-	
-	third := func(){
-	for{
-		select{
-			case a := <- tres:
-			//fmt.Printf("Cake num %d started decor\n", a.num)
-			a.decor = true
-			
-			a.started_decor = time.Now()
-			took_decor := 200
-			time.Sleep(time.Duration(took_decor) * time.Millisecond)
-			
-			a.finished_decor = time.Now()
-			line.push(a)
-			if (a.num == amount){
-			 wait <- 0 }
-			
-		}
-	}
-}
-	
-	go first()
-	go second()
-	go third()
-	for i:=0; i<=amount; i++{
-		a := new(cake)
-		a.num = i
-		uno <- a
-	}
-	return line
-}
-*/
-
-
-/*
-package main
-
-import (
-	"fmt"
-	"math/rand"
-	"os"
-	"time"
-  "sync"
+import "os"
+//import "fmt"
+import ("github.com/wcharczuk/go-chart" 
+//exposes "chart"
 )
+const STEPS_COUNT = 3
 
-var start = time.Now()
+var CESAR_CODE = get_string_encryption_Cesar(13)
+var XOR_CODE = get_string_encryption_Xor(generate_encryption_Xor_key(100))
+var ATBASH_CODE = string_encryption_Atbash
 
-func getTime() string {
-	return time.Now().Format("15:04:05.99999999")
-}
+type procFunc func(string) string
 
-type procFunc func(int) int
-
-func proc(input <-chan int, procName string, f procFunc, mutex *sync.Mutex) <-chan int {
-	output := make(chan int)
+func proc(input <-chan request_t, procID int, f procFunc) <-chan request_t {
+	output := make(chan request_t)
 
 	go func() {
 		defer close(output)
-
 		for arg := range input {
-      mutex.Lock()
-			fmt.Print("time: ", getTime(), " in  ", procName, ": ", arg, "\n")
-      mutex.Unlock()
-			value := f(arg)
-      mutex.Lock()
-			fmt.Print("time: ", getTime(), " out ", procName, ": ", value, "\n")
-      mutex.Unlock()
-			output <- value
+			arg.steps[procID].start = time.Now()
+
+			//time.Sleep(time.Duration(100) * time.Microsecond)
+			//fmt.Println(arg.id, procID, time.Now())
+			arg.str = f(arg.str)
+			arg.steps[procID].end = time.Now()
+			output <- arg //value
+
+	        time.Sleep(10*time.Microsecond)
 		}
 	}()
+	
 	return output
 }
 
-func linearProc(arg int, procName string, f procFunc) int {
-	fmt.Print("time: ", getTime(), " in  ", procName, ": ", arg, "\n")
-	value := f(arg)
-	fmt.Print("time: ", getTime(), " out ", procName, ": ", value, "\n")
+func setup(n int) <-chan request_t {
+	channel := make(chan request_t)
 
-	return value
-}
+	var req []request_t = make([]request_t, n)
 
-func setup(n int, mutex *sync.Mutex) <-chan int {
-	channel := make(chan int)
+	for i:=0;i<n;i++{
+		req[i] = make_request(i)
+	}
 
-	go func() {
+	go func(req []request_t) {
 		defer close(channel)
-
 		for i := 0; i < n; i++ {
-			value := rand.Intn(100)
-			fmt.Print("time: ", getTime(), " send: ", value, "\n")
-			channel <- value
+			//req := make_request(i)
+			req[i].start_wait = time.Now()
+			channel <- req[i]
 		}
-	}()
+	}(req)
 	return channel
 }
 
-func linearGenerate() int {
-	value := rand.Intn(100)
-	fmt.Print("time: ", getTime(), " send: ", value, "\n")
-	return value
-}
 
-func stepA(arg int) int {
-	time.Sleep(100)
-	return arg + arg
-}
+func conveyorRun(count int, channel <- chan request_t) request_array_t {
+    //var mutex sync.Mutex
 
-func stepB(arg int) int {
-	time.Sleep(100)
-	return arg + arg
-}
+	var steps[STEPS_COUNT]func(string)string 
+	steps[0] = CESAR_CODE
+	steps[1] = XOR_CODE
+	steps[2] = ATBASH_CODE
 
-func stepC(arg int) int {
-	time.Sleep(100)
-	return arg + arg
-}
 
-func conveyorRun(count int) {
-  var mutex sync.Mutex
-	var channel = setup(count, &mutex)
-	channel = proc(channel, "A", stepA, &mutex)
-	channel = proc(channel, "B", stepB, &mutex)
-	channel = proc(channel, "C", stepC, &mutex)
+	for i:=0;i<STEPS_COUNT;i++{
+		channel = proc(channel, i, steps[i])
+	}
 
+
+	var res_arr_request request_array_t = make_empty_request_array(count)
+
+	var i int = 0
 	for res := range channel {
-    mutex.Lock()
-		fmt.Print("time: ", getTime(), " res: ", res, "\n")
-    mutex.Unlock()
+		res_arr_request.elems[i] = res
+		i++
+	}
+
+	return res_arr_request
+}
+
+
+func lenear(input <-chan request_t){
+	var time_start, time_end time.Time
+	var sum, count int64
+	sum = 0
+	count = 0
+	for req := range input{
+		req.str = CESAR_CODE(req.str)
+		req.str = ATBASH_CODE(req.str)
+		req.str = XOR_CODE(req.str)
+		sum = sum + int64(time_end.Sub(time_start))
+		count++
+		//fmt.Println(count, time.Now())
+		time.Sleep(30*time.Microsecond)
 	}
 }
 
-func main() {
-  rand.Seed(time.Now().UnixNano())
-	var count int
-	fmt.Print("Enter setup count: ")
-	_, err := fmt.Scanf("%d", &count)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+func testing(n int, leantime *time.Duration, convtime *time.Duration){
+	channel1 :=setup(n)
+	channel2 :=setup(n)
+
+	time.Sleep(10*time.Millisecond)
+
+	time1 := time.Now()
+	lenear(channel1)
+	time2 := time.Now()
+	time3 := time.Now()
+	conveyorRun(n, channel2)
+	time4 := time.Now()
+
+	*leantime = time2.Sub(time1)
+	*convtime = time4.Sub(time3)
+}
+
+func print_comp_graph(){    
+	const REPEATS = 1003
+	var time1[] float64 =make([]float64, REPEATS/50+1)
+	var time2[] float64 =make([]float64, REPEATS/50+1)
+	var t1, t2 time.Duration
+	var x[] float64 = make([]float64, REPEATS/50+1)
+
+	for i:=1; i < REPEATS/2; i+=50{
+		testing(i, &t1, &t2)
+    }
+	for i:=1; i < REPEATS; i+=50{
+		x[i/50] = float64(i)
+		for j:=0;j<10;j++{
+		    testing(i, &t1, &t2)
+		    time1[i/50] += float64(t1)
+		    time2[i/50] += float64(t2)
+		}
+		time1[i/50] /= 10
+		time2[i/50] /= 10
+    }
+
+
+	graph1 := chart.Chart{
+	Background: chart.Style{
+	Padding: chart.Box{
+		Top:  20,
+			Left: 20,
+			},
+		},
+		Series: []chart.Series{/*
+			chart.ContinuousSeries{
+				Name:    "Очередь 1",
+				XValues: x,//[]float64{1.0, 2.0, 3.0, 4.0},
+				YValues: time_steps[0],//[]float64{1.0, 2.0, 3.0, 4.0},
+			},*/
+			chart.ContinuousSeries{
+				Name:    "Linear",
+				XValues: x,//[]float64{1.0, 2.0, 3.0, 4.0},
+				YValues: time1,//[]float64{1.0, 2.0, 3.0, 4.0},
+			},
+			chart.ContinuousSeries{
+				Name:    "Conveer",
+				XValues: x,//[]float64{1.0, 2.0, 3.0, 4.0},
+				YValues: time2,//[]float64{1.0, 2.0, 3.0, 4.0},
+			},
+		},
 	}
 
-	conveyorRun(count)
+	graph1.Elements = []chart.Renderable{
+		chart.Legend(&graph1),
+	}
+
+	f, _ := os.Create("output2.png")
+	defer f.Close()
+	graph1.Render(chart.PNG, f)
+	    
 }
-*/

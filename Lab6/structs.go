@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
-
+//import "fmt"
+/*
 type node_t struct {
 	elem int
 	next *node_t
@@ -40,7 +40,7 @@ func (l list_t)include(num int)bool{
 		if (num == arr.elems[i]){
 			return true
 		}
-	}*/
+	}
 	return false
 }
 
@@ -153,4 +153,4 @@ func print_matrix(m matrix_t){
 		}
 		fmt.Print("\n")
 	}
-}
+}*/

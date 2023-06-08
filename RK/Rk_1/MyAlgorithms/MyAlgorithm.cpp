@@ -1,1 +1,0 @@
-#include "MyAlgorithm.hpp"

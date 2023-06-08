@@ -3,19 +3,37 @@
 
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <mutex>
 
-typedef std::vector<double> vector_t;
-typedef std::vector<std::vector<double>> matrix_t;
+#include <chrono>
+#include <ctime>    
 
-vector_t multiplicateVectorAndMatrix(matrix_t matrix, vector_t vector);
-vector_t make_vector(double x, double y);
+#include <stdio.h>
 
-//matrix_t makeMatrix(double x, double y, int operation);
-matrix_t multiplicateMatrixes(matrix_t a, matrix_t b);
+#define REPEATS 200
+#define MAX_ROWS 1001
+#define MAX_COLUMNS 100
+#define MAX_THREADS 33
 
-matrix_t makeTestMatrix1();
-void output_matrix(matrix_t m);
-void makeLeftTriangleMatrix(matrix_t &m);
-void makeRightTriangleMatrix(matrix_t &m);
+extern std::mutex MuTeX;
+
+struct matrix_t{
+    double ** elems;
+    int rows;
+    int columns;
+};
+
+matrix_t make_matrix(int rows, int columns);
+void input_matrix(matrix_t &m1);
+void output_matrix(matrix_t &m1);
+
+void standart_average(matrix_t &m1, double &res);
+void parall_row_average(double &res, double **elems, int rows, int columns, int index, int step);
+void parall_column_average(double &res, double **elems, int rows, int columns, int index, int step);
+double control_thread(matrix_t &m1, 
+    void func(double &, double **, int, int, int, int), int thread_count);
+
+void generate_rand_matrix(matrix_t &m1);
 
 #endif

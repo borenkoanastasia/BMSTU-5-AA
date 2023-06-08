@@ -1,101 +1,105 @@
 #include "matrix.hpp"
 
-vector_t make_vector(double x, double y)
-{
-	vector_t result = {x, y, 1};
-	return result;
-}
-
-vector_t multiplicateVectorAndMatrix(matrix_t matrix, vector_t vector)
-{
-	vector_t result = {0, 0, 0};
-	for (int i = 0; i < (int) matrix.size(); i++)
-	{
-		for (int j = 0; j < (int) matrix.size(); j++)
-		{
-			result[i] += matrix[j][i] * vector[j];
-			//std::cout << result[i] << " " << matrix[j][i] << " " << vector[j] << std::endl;
-			//std::cout << i << " " << j << std::endl;
-		}
-	}
-	//std::cout << std::endl;
-	return result;
-}
-
-matrix_t makeTestMatrix1()
-{
-    matrix_t m = {{ 2, 1, 0,  0},
-                  {-1, 1, 4, 13},
-                  { 1, 2, 3, 14}};
+matrix_t make_matrix(int rows, int columns){
+    matrix_t m;
+    m.rows = rows;
+    m.columns = columns;
+    m.elems = (double **)calloc(m.rows, sizeof(double *));
+    for (int i = 0; i < m.rows; i++)
+    {
+        m.elems[i] = (double *)calloc(m.columns, sizeof(double));
+    }
     return m;
 }
 
-void makeLeftTriangleMatrix(matrix_t &m)
+void input_matrix(matrix_t &m)
 {
-    double cur_del;
-    for (int i = 0; i < m.size(); i++){
-        cur_del = m[i][0];
-        for (int k = 0; k < m[0].size(); k++){
-            m[i][k] = m[i][k]/cur_del;
-        }
-        for (int j = i + 1; j < m.size(); j++){
-            cur_del = m[j][0];
-            for (int k = 0; k < j; k++){
-                m[j][k] = m[j][k]/cur_del - m[0][k];   
-            }
+    double buf;
+    int rows, columns;
+    std::cout << "Введите размер матрицы[rowsxcolumns]:\n";
+    std::cout << "строки: ";
+    std::cin >> rows;
+    std::cout << "столбцы: ";
+    std::cin >> columns;
+    std::vector<double> v1;
+    m = make_matrix(rows, columns);
+    for (int i = 0; i < m.rows; i++)
+    {
+        m.elems[i] = (double *)calloc(m.columns, sizeof(double));
+        for (int j = 0; j < m.columns; j++){
+            std::cin >> m.elems[i][j];
         }
     }
 }
-void makeRightTriangleMatrix(matrix_t &m)
-{
-    double cur_del_1, cur_del_2;
-    for (int i = 0; i < m.size(); i++){
-        cur_del_1 = m[i][0];
-        for (int k = 0; k < m[0].size(); k++){
-            m[i][k] = m[i][k]/cur_del_1;
-        }
-        for (int j = i + 1; j < m.size(); j++){
-            cur_del_2 = m[i][i];
-            for (int k = 0; k < m.size(); k++){
-                std::cout << cur_del_2 << " " << i << " " << j << " " << k << std::endl << std::endl;
-                if (m[i][k] * m[0][k] > 0){
-                    m[i][k] = m[i][k]/cur_del_2 - m[0][k];
-                }
-                else{
-                    m[i][k] = m[i][k]/cur_del_2 + m[0][k];
-                }   
-            }
-            output_matrix(m);
-        }
-    }
-}
-// складываются строки r1 + r2 и записываются в r1 
-void complicate_rows(matrix_t m, int r1, int r2){}
 
-void output_matrix(matrix_t m)
-{
-    //std::cout << std::endl;
-    for (int i = 0; i < m.size(); i++){
-        for (int k = 0; k < m[0].size(); k++){
-            std::cout << m[i][k] << " ";
+void output_matrix(matrix_t &m){
+    std::cout << "Матрица: " << m.rows << "x" << m.columns << std::endl;
+    for (int i = 0; i < m.rows; i++)
+    {
+        for (int j = 0; j < m.columns; j++){
+            std::cout << m.elems[i][j] << " ";
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
 }
 
-matrix_t multiplicateMatrixes(matrix_t a, matrix_t b)
+void standart_average(matrix_t &m1, double &res)
 {
-	matrix_t matrix = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	for (int i = 0; i < (int) matrix.size(); i++)
-	{	
-		for (int j = 0; j < (int) matrix.size(); j++)
-		{
-			for (int k = 0; k < (int) matrix.size(); k++)
-			{
-				matrix[j][k] += a[j][i] * b[i][k];
-			}
-		}
-	}
-	return matrix;
+    res = 0;
+    for (int i = 0; i < m1.rows; i++){
+        for (int j = 0; j < m1.columns; j++){
+            res += m1.elems[i][j];
+        }
+    }
+    res = res / m1.rows/m1.columns;
+}
+void parall_row_average(double &res, double **elems, int rows, int columns, int index, int step)
+{
+    double r = 0;
+    for (int i = index; i < rows; i+=step){
+        for (int j = 0; j < columns; j++){
+            r += elems[i][j];
+        }
+    }
+    MuTeX.lock();
+    res += r;
+    MuTeX.unlock();
+}
+void parall_column_average(double &res, double **elems, int rows, int columns, int index, int step)
+{
+    double r = 0;
+    for (int i = 0; i < rows; i++){
+        for (int j = index; j < columns; j+=step){
+            r += elems[i][j];
+        }
+    }
+    MuTeX.lock();
+    res += r;
+    MuTeX.unlock();
+}
+
+double control_thread(matrix_t &m1, 
+    void func(double &, double **, int, int, int, int), int thread_count)
+{
+    std::thread th[thread_count];
+    double res = 0;
+    for (int i = 0; i < thread_count; i++)
+    {
+        th[i] = std::thread(func, std::ref(res), m1.elems, m1.rows, m1.columns, i, (thread_count));
+    }
+    double del = m1.columns*m1.rows;
+    for (int i = 0; i < thread_count; i++)
+    {
+        th[i].join();
+    }
+    
+    return res / del;
+}
+
+void generate_rand_matrix(matrix_t &m1){
+    for (int i = 0; i < m1.rows; i++){
+        for (int j = 0; j < m1.columns; j++){
+            m1.elems[i][j] = std::rand();
+        }
+    }
 }

@@ -21,6 +21,52 @@ func get_string_encryption_Cesar(sh int) func(string) string {
 	}
 }
 
+func string_encryption_Cesardz(str1 string, n int, m int) string {
+	var str2 string 
+	var r byte
+	str2 = ""
+	for j:=0;j<m;j++{
+		if (j == 0){
+			for i := 0; i < len(str1); i++ {
+				r = str1[i] + byte(n)
+				if (r > 'z'){
+					r = r-'z' + 'a'
+				}
+				str2 = str2 + string([]byte{r})
+			}
+	    } else{
+			str1 = str2 
+			str2 = ""
+			n = int(str1[len(str1)-1] - 'a')
+			for i := 0; i < len(str1); i++ {
+				r = str1[i] + byte(n)
+				if (r > 'z'){
+					r = r-'z' + 'a'
+				}
+				n = int(r - 'a') +1
+				str2 = str2 + string([]byte{r})
+		    }		
+	    }
+    }
+	return str2
+}
+func get_string_encryption_Cesardz(sh int) func(string) string {
+	var code byte = byte(sh)
+	return func(str1 string) string {
+		var str2 string = ""
+		var r byte
+		for i := 0; i < len(str1); i++ {
+			r = str1[i] + code
+			if (r > 'z'){
+				r = r-'z' + 'a'
+			}
+			str2 = str2 + string([]byte{r})
+			//fmt.Println(r," ", str2, string([]byte{r}))
+		}
+		return str2
+	}
+}
+
 //string_encryption_Xor
 func get_string_encryption_Xor(sh string) func(string) string {
 	var code string = sh

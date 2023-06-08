@@ -2,6 +2,87 @@ package main
 
 //import "fmt"
 
+func get_factorial(n int) int{
+	var res int = 1
+	for i:=1;i<n+1;i++{
+		res = res*i
+	}
+	return res
+}
+
+func get_array_of_cities(count int)int_array_t{
+	var arr = make_int_array(count)
+	for i:=0;i<count;i++{
+		arr[i] = i
+	}
+	return arr
+}
+
+func generate_routs_arr(n int)[][]int{
+    var helper func(int_array_t, int)
+	var array_of_cities = get_array_of_cities(n)
+	var routs = [][]int{}
+
+	helper = func(arr int_array_t, n int){
+		if n == 1{
+			tmp := make_int_array(len(arr))
+			copy(tmp, arr)
+			routs = append(routs, tmp)
+		} else {
+			for i := 0; i < n; i++{
+				helper(arr, n - 1)
+				if n % 2 == 1{
+					tmp := arr[i]
+					arr[i] = arr[n - 1]
+					arr[n - 1] = tmp
+				} else {
+					tmp := arr[0]
+					arr[0] = arr[n - 1]
+					arr[n - 1] = tmp
+				}
+			}
+		}
+	}
+	helper(array_of_cities, len(array_of_cities))
+
+	return routs
+}
+
+func (contiguity float_matrix_t)get_rout_weight(rout int_array_t, cur_weight *float64)bool{
+	//var cur_weight float64 = 0
+	for j:=0;j<len(rout);j++{
+		var cv float64
+		if (j == 0){
+			cv = contiguity[rout[len(rout)-1]][rout[j]]
+		} else{
+			cv = contiguity[rout[j]][rout[j-1]]
+		}
+		if (cv == -1){
+			return false
+		}
+		*cur_weight+=cv
+	}
+	return true
+}
+
+func search_all(contiguity float_matrix_t, min_weight*float64)[]int{
+	var routs = generate_routs_arr(len(contiguity))
+	var rout = make_int_array(len(contiguity))
+
+	*min_weight = -1
+
+	for i:=0;i<len(routs);i++{
+		var cur_weight float64 = 0
+		var flag_success_route bool = contiguity.get_rout_weight(routs[i], &cur_weight)
+		
+		if (flag_success_route == true && (cur_weight < *min_weight || *min_weight == -1)){
+			*min_weight = cur_weight
+			copy(rout, routs[i])
+		}
+	}
+	return rout
+}
+/*
 type string_array_t struct {
 	elems[] string
 	//size int
